@@ -1,0 +1,45 @@
+﻿Tables:
+    Manufacturer
+    PersonalInfo
+    Doses
+    UnitDistribution
+    Patient
+    DistByFederal
+    DistByState
+    LocalBody
+
+The Vaccines are made by Manufacturer of different types, so all data related to Vaccine, 
+it's type and Its Manufacturer is stored inside "Manufacturer Table".
+
+All the Vaccines source is Manufacturer(Assumption), its their own wish where they want to 
+sell/provide the Vaccines so all the Distribution is done inside "UnitDistribution table".
+
+The Distribution can be done by Federal Government to the LocalBody or the Manufacturer 
+can send them direct to LocalBodies(Assumed). So the Federal Government will distributed
+the Vaccines to different States all of this data is stored under "DistByFederalGorv table",
+and the distribution of Vaccine by each state to their LocalBodies is stored under
+"DistByState table".
+
+LocalBody include health care centers such as hospitals or long-term care facilities, 
+city run covid vaccination camps, private labs and pharmacy outlets such as Walgreens, 
+CVS, Walmart etc. All of the data is stored under "LocalBody table".
+
+All the Personal Information of the people are stored inside PersonalInfo Table.
+
+(Assumption)The Patient which is considered as the person who has taken the shot or 
+is under Phases 
+- 1A (Healthcare – Tier1)
+- 1A – Healthcase (Tier2)
+- 1A – long tern care – assisted living residents
+- 1A – long-term care – nursing home residents
+- 1B – 16-64 any medical condition
+- 1B – population over 65
+- 1C - Education and child care personnel
+- 2 – people 16 years and older
+is stored inside Patient table which can extract the data from personalinfo if needed.
+
+No.of Doses and Vaccine taken by different people at a particular time are monitered under 
+Doses Table where Doctors can easily moniter the data if needed.
+
+
+

@@ -1,0 +1,156 @@
+TABLES:
+
+CREATE TABLE Manufacturer(
+    ManuId INT PRIMARY KEY,
+    ManuName VARCHAR(20),
+    UnitType VARCHAR(20),
+    VaccineName VARCHAR(20),
+    VaccineType VARCHAR(20)
+);
+
+CREATE TABLE LocalBody (
+    LocalBodyId INT PRIMARY KEY,
+    LocalBodyName VARCHAR(20),
+    LocalBodyType VARCHAR(20)
+);
+
+CREATE TABLE UnitDistribution(
+    DistId INT PRIMARY KEY,
+    LocalBodyId INT,
+    QtyOfDoses INT,
+    ManuId INT,
+    DistDate DATE,
+    FOREIGN KEY (LocalBodyId) REFERENCES LocalBody(LocalBodyId),
+    FOREIGN KEY (ManuId) REFERENCES Manufacturer(ManuId)
+);
+
+CREATE TABLE DistByFederalGorv(
+    DistId INT,
+    StateName VARCHAR(20) PRIMARY KEY,
+    QtyDist INT,
+    FOREIGN KEY (DistId) REFERENCES UnitDistribution(DistId)
+);
+
+
+
+CREATE TABLE DistByState(
+    StateName VARCHAR(20) ,
+    LocalBodyId INT,
+    QtyObtain INT,
+    FOREIGN KEY (StateName) REFERENCES DistByFederalGorv(StateName),
+    FOREIGN KEY (LocalBodyId) REFERENCES LocalBody(LocalBodyId)
+);
+
+CREATE TABLE PersonalInfo(
+    PId INT PRIMARY KEY,
+    PName VARCHAR(20),
+    PAdd VARCHAR(50),
+    PContactNo INT,
+    PAge INT,
+    PMedicalCond VARCHAR(20),
+    PAllergy VARCHAR(20)
+);
+
+CREATE TABLE Patient(
+    PId INT,
+    VaccinationPhase VARCHAR(20),
+    LocalBodyId INT,
+    doseId int PRIMARY KEY,
+    FOREIGN KEY (PId) REFERENCES PersonalInfo(PId),
+    FOREIGN KEY (LocalBodyId) REFERENCES LocalBody(LocalBodyId)
+);
+
+CREATE TABLE Doses(
+    PId INT,
+    DoseId INT,
+    ShotTime date,
+    ManuId INT,
+    FOREIGN KEY (PId) REFERENCES PersonalInfo(PId),
+    FOREIGN KEY (DoseId) REFERENCES Patient(DoseId),
+    FOREIGN KEY (ManuId) REFERENCES Manufacturer(ManuId)
+);
+
+
+Explanations:
+
+1- Patient Table, PId is the foreign key and it takes this information from 
+the PatientsPersonalInfo table and the relationship
+ is many-to-one, it includes other columns like Vaccination phase,
+ LocalBodyID which is a Foreign key and it includes the ID’s
+ from the Local Body table and the relationship
+ is many-to-one, and doseId is PK
+
+
+2- PatientsPersonalInfo table, PID is the primary key
+ and this table holds the personal information of the patient which
+ includes Name, Address, contactNumber, Age, medicalcondition or if he has any Allergy.
+PatientInfo is connected with Patient with 1-to-many as patient treatment will be different
+for everyone and Patient is connected with 1-to-many relationship with doses to get the
+record of every patient w.r.t their dose type.
+
+
+
+3- Dose Table, PId  is the Foreign key and which get information of partient from 
+personalinfo table the relationship is many-to-one. DoseID which is FK and get information
+ from patient table the relationship is many-to-one.
+ManuID which is FK represents the manufacturer of the Doses the relationship is many-to-one. table includes
+Shot time indicates time when the shot was taken by the patient.
+Manufacturer and PersonalInfo is connected with Doses as the patient will recieve the 
+same dose as provided by Manufacturer and will be taken by patient and their info is in
+PersonalInfo
+
+
+
+
+4- Manufacturer table ManuID is the
+ primary key and other information like ManufacturerName, 
+Unit Type , Vaccine Name  which indicates the vaccine manufactured by
+ the manufacturer and the vaccination type indicates vaccination for
+ which medical condition.Manufacturer is connected with UnitDistribution with 1-to-many as its the only thing that 
+will distribute the vaccines.
+
+
+
+5- UnitDistrution table . DistID is PK ,LocalBodyID and the manuId is the
+ foreign keys to Localbody table and Manufacturer table 
+ and all the relationship between
+ the Unit distribution table to the corresponding
+ tables of the foreign key is many-to-one.
+Also table has Qtyofdoses(quantity of dose), DistDate which represent day of distribution.
+UnitDistrution table has relationship with DistByfederalGorv as one-to-many
+
+
+
+
+
+6- localBody Table, LocalBodyID is the primary
+ key and it includes localBodyName and the type of the localbody.
+LocalBody is connected with DistByState, UnitDistribution and Patient with one to many
+relationship as it collects Vaccines from different sources and gives to Patient.
+
+ 
+
+
+
+7- DistByState table,localbodyID is the foreign key to localBody table and the relationship is many-to-one as it
+ includes how many number of localbodies are included in a particular
+ state and how many quantity of doses obtained in a particular state.
+stateName is foreign key to DistByFederalGorv table and relationship between them is many-to-one as 
+how many of distributions state get by Governments.
+
+
+
+8- DistByFedralGov table, stateName as the primary key 
+and the DistId as foreign key to Unitdistribution table and relationship is Many-to-one as
+many states can have one unit. QtyBydistance how many quantity of doses are being transferred
+to a particular state. DistByFederalGorv is connected with DistByState with 1-to-many relationship as
+ Federal Government will distribute vaccine to all the states.
+
+
+
+
+
+
+
+
+
