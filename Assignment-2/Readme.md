@@ -49,14 +49,14 @@ The vaccine types can be-
 
 
 # achievement:
-1- design ER/EER schema diagram based upon the COVIDVACCINE
-2- map the ER/EER schema design
-to a relational database schema, and create the tables corresponding to the
-relational schema using the ORACLE DBMS 
-3- load some data into the database and apply
-certain update transactions and retrieval queries
-4- Write Trigger
+1- design ER/EER schema diagram based upon the COVIDVACCINE<br />
+2- map the ER/EER schema design<br />
+to a relational database schema, and create the tables corresponding to the<br />
+relational schema using the ORACLE DBMS <br />
+3- load some data into the database and apply<br />
+certain update transactions and retrieval queries<br />
+4- Write Trigger<br />
 # Tools:
-1- MySQL
-2- Python ( To load / Update Records)
+1- MySQL<br />
+2- Python ( To load / Update Records)<br />
 
